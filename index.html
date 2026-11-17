@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reliable Image Slider</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #121212;
+      font-family: Arial, sans-serif;
+    }
+
+    .slider-container {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      height: 450px;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      background-color: #222;
+    }
+
+    .slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide img,
+    .slide svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 45px;
+      left: 25px;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.55);
+      color: white;
+      border: none;
+      padding: 14px 18px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+      z-index: 10;
+    }
+
+    .prev:hover, .next:hover {
+      background-color: rgba(0, 0, 0, 0.85);
+    }
+
+    .prev { left: 15px; }
+    .next { right: 15px; }
+
+    .dots {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 5px;
+      background-color: rgba(255, 255, 255, 0.45);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .dot.active {
+      background-color: #ffffff;
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slider-container">
+    <div class="slider-track" id="track">
+      
+      <!-- Slide 1: Mountain Sunset -->
+      <div class="slide">
+        <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1e3c72"/>
+              <stop offset="50%" stop-color="#ff7e5f"/>
+              <stop offset="100%" stop-color="#feb47b"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="450" fill="url(#sky1)"/>
+          <circle cx="560" cy="210" r="55" fill="#fff3b0" opacity="0.9"/>
+          <polygon points="0,450 220,180 460,450" fill="#2b2d42"/>
+          <polygon points="320,450 560,150 800,450" fill="#1d1e2c"/>
+          <polygon points="150,450 380,240 640,450" fill="#3a3d5b"/>
+        </svg>
+        <div class="caption">Slide 1 — Mountain Sunset</div>
+      </div>
+
+      <!-- Slide 2: Ocean Horizon -->
+      <div class="slide">
+        <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4facfe"/>
+              <stop offset="100%" stop-color="#00f2fe"/>
+            </linearGradient>
+            <linearGradient id="sea2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0077b6"/>
+              <stop offset="100%" stop-color="#03045e"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="270" fill="url(#sky2)"/>
+          <circle cx="220" cy="120" r="40" fill="#ffffff" opacity="0.85"/>
+          <rect y="270" width="800" height="180" fill="url(#sea2)"/>
+          <path d="M0,290 Q200,275 400,290 T800,290" fill="none" stroke="#90e0ef" stroke-width="3" opacity="0.6"/>
+          <path d="M0,330 Q200,315 400,330 T800,330" fill="none" stroke="#90e0ef" stroke-width="2" opacity="0.4"/>
+        </svg>
+        <div class="caption">Slide 2 — Ocean Horizon</div>
+      </div>
+
+      <!-- Slide 3: Starry Desert Night -->
+      <div class="slide">
+        <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0f0c29"/>
+              <stop offset="60%" stop-color="#302b63"/>
+              <stop offset="100%" stop-color="#24243e"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="450" fill="url(#sky3)"/>
+          <circle cx="650" cy="95" r="32" fill="#f8f9fa"/>
+          <circle cx="120" cy="70" r="2" fill="#fff"/>
+          <circle cx="260" cy="110" r="2.5" fill="#fff"/>
+          <circle cx="410" cy="60" r="2" fill="#fff"/>
+          <circle cx="510" cy="130" r="1.5" fill="#fff"/>
+          <circle cx="190" cy="160" r="2" fill="#fff"/>
+          <path d="M0,340 Q250,270 500,350 T800,310 L800,450 L0,450 Z" fill="#c97b36"/>
+          <path d="M0,380 Q320,320 620,390 T800,370 L800,450 L0,450 Z" fill="#8d491c"/>
+        </svg>
+        <div class="caption">Slide 3 — Starry Desert Night</div>
+      </div>
+
+      <!-- Slide 4: Forest Hills -->
+      <div class="slide">
+        <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="sky4" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#a8ff78"/>
+              <stop offset="100%" stop-color="#78ffd6"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="450" fill="url(#sky4)"/>
+          <path d="M0,280 Q200,200 450,290 T800,250 L800,450 L0,450 Z" fill="#2d6a4f"/>
+          <path d="M0,340 Q300,260 550,340 T800,310 L800,450 L0,450 Z" fill="#1b4332"/>
+          <path d="M0,390 Q220,340 480,400 T800,380 L800,450 L0,450 Z" fill="#081c15"/>
+        </svg>
+        <div class="caption">Slide 4 — Forest Hills</div>
+      </div>
+
+    </div>
+
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+
+    <div class="dots" id="dots-container"></div>
+  </div>
+
+  <script>
+    const track = document.getElementById('track');
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots-container');
+    let currentIndex = 0;
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(index));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlider() {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    function moveSlide(direction) {
+      currentIndex = (currentIndex + direction + slides.length) % slides.length;
+      updateSlider();
+    }
+
+    function goToSlide(index) {
+      currentIndex = index;
+      updateSlider();
+    }
+
+    setInterval(() => moveSlide(1), 4000);
+  </script>
+
+</body>
+</html>
